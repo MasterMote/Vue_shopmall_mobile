@@ -3,17 +3,16 @@
     <NavBar class="nar-bar">
       <div slot="nav-center">购物街</div>
     </NavBar>
-    <Scroll class="srcoll"
-            ref="scroll">
-      <div>
+    <keep-alive>
+      <Scroll ref="scroll">
         <HomeSwiper :banners='banners'></HomeSwiper>
         <HomeRecommend :recommends='recommends'></HomeRecommend>
         <HomeFashion></HomeFashion>
         <TabControl :tabControlTitle='tabControlTitle'
                     @tabItemClick='tabItemClick'></TabControl>
         <GoodsList :goods="showGoods"></GoodsList>
-      </div>
-    </Scroll>
+      </Scroll>
+    </keep-alive>
     <BackTop @click.native="backToTop"></BackTop>
   </div>
 </template>
@@ -81,7 +80,17 @@ export default {
     this.getHomeGoods('new')
     this.getHomeGoods('sell')
   },
-  mounted() {},
+  mounted() {
+    // console.log(this.$refs.scroll)
+    // setTimeout(() => {
+    //   this.$refs.scroll.refresh()
+    // }, 50)
+
+    //监听图片加载事件，图片加载一次就刷新差异scroll对象
+    this.$bus.$on('homeItemImgLoad', () => {
+      this.$refs.scroll.refresh()
+    })
+  },
   methods: {
     // 事件监听
     tabItemClick(index) {
@@ -140,5 +149,7 @@ export default {
   bottom: 49px;
   left: 0;
   right: 0;
+  height: 400px;
+  background-color: red;
 }
 </style>

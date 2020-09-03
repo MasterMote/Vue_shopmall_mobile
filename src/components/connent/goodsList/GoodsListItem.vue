@@ -27,16 +27,17 @@ export default {
   },
   methods: {
     itemImgLoad() {
-      // if(this.$route.path.indexOf('/home') >=0){
-      // 	this.$bus.$emit('homeItemImgLoad');
-      // }else if(this.$route.path.indexOf('/detail') >=0){
-      // 	this.$bus.$emit('detailItemImgLoad');
-      // }
-      //this.$bus.$emit('itemImgLoad')
-      // console.log('this.$route.path.indexOf');
+      if (this.$route.path.indexOf('/home') >= 0) {
+        this.$bus.$emit('homeItemImgLoad')
+      } else if (this.$route.path.indexOf('/detail') >= 0) {
+        this.$bus.$emit('detailItemImgLoad')
+      }
+      this.$bus.$emit('itemImgLoad')
+      // console.log('this.$route.path.indexOf')
     },
     itemLink() {
-      this.$router.push('/detail/' + this.goodsItem.iid)
+      // this.$router.push('/detail/' + this.goodsItem.iid)
+      this.$router.push('/detail')
     }
   },
   computed: {
